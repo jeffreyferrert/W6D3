@@ -7,7 +7,7 @@ class UsersController < ApplicationController
 
     def create
         user = User.new(user_params)
-        # replace the `user_attributes_here` with the actual attribute keys
+   
         if user.save
             render json: user
         else 
@@ -22,9 +22,10 @@ class UsersController < ApplicationController
     end
 
     def update 
-        user = User.new(user_params)
-
+        user = User.find(params[:id])
+        
         if user.update(user_params)
+            # debugger
             redirect_to user_url(user)
         else 
             render json: user.errors.full_messages, status: 418
@@ -43,7 +44,7 @@ class UsersController < ApplicationController
 
     private
     def user_params
-        params.require(:user).permit(:name, :email)
+        params.require(:user).permit(:username)
     end
 
 end 
